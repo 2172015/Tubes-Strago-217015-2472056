@@ -18,6 +18,15 @@ Ikuti langkah-langkah di bawah ini secara berurutan pada terminal komputer (Powe
 
 ### 1. Unduh / _Clone Repository_
 
+Buat sebuah folder baru sebagai repository lokal anda. Contoh:
+"D:\Strago\Tubes"
+
+Buka folder tersebut dalam VSCODE atau jika melalui terminal:
+
+```bash
+cd "D:\Strago\Tubes"
+```
+
 Buka terminal dan lakukan _clone repository_ ini, lalu arahkan ke direktori kerja Anda:
 
 ```bash
