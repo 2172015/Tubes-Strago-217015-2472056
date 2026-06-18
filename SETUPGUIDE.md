@@ -46,6 +46,13 @@ py -m venv .venv
 
 ```
 
+Kalau tidak bisa, jalankan kode ini di terminal VSCODE
+
+```bash
+cd "Tubes-Strago-217015-2472056"
+
+```
+
 ### 3. Aktivasi _Virtual Environment_
 
 Aktifkan _virtual environment_ yang baru saja dibuat.
