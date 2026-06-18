@@ -91,6 +91,8 @@ py main_gui.py
 
 ```
 
+atau langsung gunakan tombol `RUN`
+
 Jendela aplikasi Desktop GUI Pemilihan Tim E-Sport akan segera muncul di layar Anda.
 
 ---
