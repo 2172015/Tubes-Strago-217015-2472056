@@ -6,11 +6,12 @@ from logika_tim import jalankan_branch_and_bound
 # ==========================================
 # PENGATURAN TEMA & JENDELA UTAMA
 # ==========================================
-ctk.set_appearance_mode("Dark")
+ctk.set_appearance_mode("Light")
 ctk.set_default_color_theme("blue")
 
 app = ctk.CTk()
-app.geometry("900x650")
+# Jendela diperbesar lagi agar kotak teks yang membesar bisa muat
+app.geometry("1300x850") 
 app.title("Aplikasi Pemilihan Tim E-Sport - Branch & Bound")
 
 # Variabel global
@@ -30,15 +31,16 @@ def generate_data():
     
     teks_data.configure(state="normal")
     teks_data.delete("1.0", "end")
-    teks_data.insert("end", f"{'ID PEMAIN':<15} | {'BIAYA KONTRAK':<15} | {'POIN SKILL'}\n")
-    teks_data.insert("end", "-"*50 + "\n")
+    # Lebar kolom tabel disesuaikan sedikit agar lebih rapi untuk font besar
+    teks_data.insert("end", f"{'ID PEMAIN':<15} | {'BIAYA KONTRAK':<16} | {'POIN SKILL'}\n")
+    teks_data.insert("end", "-"*55 + "\n")
     
     for i in range(1, n + 1):
         biaya = random.randint(10, 50)  
         skill = random.randint(50, 100) 
         nama_id = f"Pemain-{i:02d}"
         data_kandidat.append({'id': nama_id, 'biaya': biaya, 'skill': skill})
-        teks_data.insert("end", f"{nama_id:<15} | ${biaya:<14} | {skill}\n")
+        teks_data.insert("end", f"{nama_id:<15} | ${biaya:<15} | {skill}\n")
         
     teks_data.configure(state="disabled")
 
@@ -64,13 +66,11 @@ def eksekusi_algoritma():
         messagebox.showerror("Error", "Ukuran tim (K) harus antara 5 hingga 10 pemain!")
         return
 
-    # Menampilkan indikator loading
     teks_hasil.configure(state="normal")
     teks_hasil.delete("1.0", "end")
     teks_hasil.insert("end", "Memproses algoritma Branch & Bound...\n")
     app.update()
 
-    # Eksekusi Algoritma
     hasil = jalankan_branch_and_bound(k_target, budget, data_kandidat)
 
     teks_hasil.delete("1.0", "end")
@@ -121,72 +121,79 @@ def step_mundur():
 # ==========================================
 
 # --- FRAME KIRI: PANEL PENGATURAN ---
-frame_kiri = ctk.CTkFrame(app, width=250)
-frame_kiri.pack(side="left", fill="y", padx=10, pady=10)
+frame_kiri = ctk.CTkFrame(app, width=350) 
+frame_kiri.pack(side="left", fill="y", padx=15, pady=15)
 
-lbl_judul = ctk.CTkLabel(frame_kiri, text="Pengaturan B&B", font=("Arial", 18, "bold"))
-lbl_judul.pack(pady=(20, 10))
+lbl_judul = ctk.CTkLabel(frame_kiri, text="Pengaturan B&B", font=("Arial", 28, "bold"))
+lbl_judul.pack(pady=(20, 20))
 
-lbl_budget = ctk.CTkLabel(frame_kiri, text="Batas Anggaran ($):")
-lbl_budget.pack(anchor="w", padx=15, pady=(10, 0))
-entry_budget = ctk.CTkEntry(frame_kiri, placeholder_text="Contoh: 150")
-entry_budget.pack(fill="x", padx=15, pady=5)
+lbl_budget = ctk.CTkLabel(frame_kiri, text="Batas Anggaran ($):", font=("Arial", 18))
+lbl_budget.pack(anchor="w", padx=20, pady=(10, 0))
+entry_budget = ctk.CTkEntry(frame_kiri, placeholder_text="Contoh: 150", font=("Arial", 18), height=40)
+entry_budget.pack(fill="x", padx=20, pady=5)
 
-lbl_k = ctk.CTkLabel(frame_kiri, text="Target Ukuran Tim (K):")
-lbl_k.pack(anchor="w", padx=15, pady=(10, 0))
-entry_k = ctk.CTkEntry(frame_kiri, placeholder_text="Antara 5 - 10")
-entry_k.pack(fill="x", padx=15, pady=5)
+lbl_k = ctk.CTkLabel(frame_kiri, text="Target Ukuran Tim (K):", font=("Arial", 18))
+lbl_k.pack(anchor="w", padx=20, pady=(15, 0))
+entry_k = ctk.CTkEntry(frame_kiri, placeholder_text="Antara 5 - 10", font=("Arial", 18), height=40)
+entry_k.pack(fill="x", padx=20, pady=5)
 
-lbl_n = ctk.CTkLabel(frame_kiri, text="Ukuran Pool Pemain (N):")
-lbl_n.pack(anchor="w", padx=15, pady=(20, 0))
-combo_n = ctk.CTkOptionMenu(frame_kiri, values=["Small 12", "Medium 18", "Large 24"])
-combo_n.pack(fill="x", padx=15, pady=5)
+lbl_n = ctk.CTkLabel(frame_kiri, text="Ukuran Pool Pemain (N):", font=("Arial", 18))
+lbl_n.pack(anchor="w", padx=20, pady=(20, 0))
+combo_n = ctk.CTkOptionMenu(frame_kiri, values=["Small 12", "Medium 18", "Large 24"], font=("Arial", 18), height=40)
+combo_n.pack(fill="x", padx=20, pady=5)
 
-btn_generate = ctk.CTkButton(frame_kiri, text="Generate Data Pemain", fg_color="#2b8a3e", hover_color="#2b8a3e", command=generate_data)
-btn_generate.pack(fill="x", padx=15, pady=(10, 30))
+btn_generate = ctk.CTkButton(frame_kiri, text="Generate Data Pemain", font=("Arial", 18, "bold"), fg_color="#2b8a3e", hover_color="#237032", height=45, command=generate_data)
+btn_generate.pack(fill="x", padx=20, pady=(25, 40))
 
-btn_run = ctk.CTkButton(frame_kiri, text="JALANKAN ALGORITMA", font=("Arial", 14, "bold"), fg_color="#c92a2a", hover_color="#c92a2a", command=eksekusi_algoritma)
-btn_run.pack(fill="x", padx=15, pady=10)
+btn_run = ctk.CTkButton(frame_kiri, text="JALANKAN ALGORITMA", font=("Arial", 20, "bold"), fg_color="#c92a2a", hover_color="#a62323", height=55, command=eksekusi_algoritma)
+btn_run.pack(fill="x", padx=20, pady=10)
 
 
 # --- FRAME KANAN: PANEL TAMPILAN DATA & HASIL ---
 frame_kanan = ctk.CTkFrame(app)
-frame_kanan.pack(side="right", fill="both", expand=True, padx=(0, 10), pady=10)
+frame_kanan.pack(side="right", fill="both", expand=True, padx=(0, 15), pady=15)
 
-lbl_data = ctk.CTkLabel(frame_kanan, text="Daftar Kandidat Pemain", font=("Arial", 14, "bold"))
-lbl_data.pack(anchor="w", padx=10, pady=(10, 0))
+# Font Judul Panel dinaikkan ke 24
+lbl_data = ctk.CTkLabel(frame_kanan, text="Daftar Kandidat Pemain", font=("Arial", 24, "bold"))
+lbl_data.pack(anchor="w", padx=20, pady=(15, 0))
 
-teks_data = ctk.CTkTextbox(frame_kanan, height=130, font=("Courier New", 12))
-teks_data.pack(fill="both", expand=True, padx=10, pady=5)
+# Font Isi Teks dinaikkan ke 22, tinggi kotak disesuaikan
+teks_data = ctk.CTkTextbox(frame_kanan, height=220, font=("Courier New", 22))
+teks_data.pack(fill="both", expand=True, padx=20, pady=5)
 teks_data.insert("end", "Data belum di-generate.")
 teks_data.configure(state="disabled")
 
-lbl_hasil = ctk.CTkLabel(frame_kanan, text="Ringkasan Solusi Akhir", font=("Arial", 14, "bold"))
-lbl_hasil.pack(anchor="w", padx=10, pady=(5, 0))
+# Font Judul Panel dinaikkan ke 24
+lbl_hasil = ctk.CTkLabel(frame_kanan, text="Ringkasan Solusi Akhir", font=("Arial", 24, "bold"))
+lbl_hasil.pack(anchor="w", padx=20, pady=(10, 0))
 
-teks_hasil = ctk.CTkTextbox(frame_kanan, height=120, font=("Courier New", 13))
-teks_hasil.pack(fill="x", padx=10, pady=5)
+# Font Isi Teks dinaikkan ke 22, tinggi kotak disesuaikan
+teks_hasil = ctk.CTkTextbox(frame_kanan, height=220, font=("Courier New", 22))
+teks_hasil.pack(fill="x", padx=20, pady=5)
 teks_hasil.insert("end", "Menunggu eksekusi algoritma...")
 teks_hasil.configure(state="disabled")
 
-lbl_recheck = ctk.CTkLabel(frame_kanan, text="Navigasi Step-by-Step (Log B&B)", font=("Arial", 14, "bold"), text_color="#fcc419")
-lbl_recheck.pack(anchor="w", padx=10, pady=(10, 0))
+# Font Judul Panel dinaikkan ke 24
+lbl_recheck = ctk.CTkLabel(frame_kanan, text="Navigasi Step-by-Step (Log B&B)", font=("Arial", 24, "bold"), text_color="#0056b3")
+lbl_recheck.pack(anchor="w", padx=20, pady=(15, 0))
 
-teks_step = ctk.CTkTextbox(frame_kanan, height=90, font=("Courier New", 13), fg_color="#343a40")
-teks_step.pack(fill="x", padx=10, pady=5)
+# Font Isi Teks dinaikkan ke 22, tinggi kotak disesuaikan
+teks_step = ctk.CTkTextbox(frame_kanan, height=150, font=("Courier New", 22))
+teks_step.pack(fill="x", padx=20, pady=5)
 teks_step.insert("end", "Log eksekusi algoritma akan muncul di sini.")
 teks_step.configure(state="disabled")
 
 frame_navigasi = ctk.CTkFrame(frame_kanan, fg_color="transparent")
-frame_navigasi.pack(fill="x", padx=10, pady=(0, 10))
+frame_navigasi.pack(fill="x", padx=20, pady=(5, 15))
 
-btn_prev = ctk.CTkButton(frame_navigasi, text="<< Sebelumnya", width=100, state="disabled", command=step_mundur)
+btn_prev = ctk.CTkButton(frame_navigasi, text="<< Sebelumnya", font=("Arial", 16, "bold"), width=150, height=40, state="disabled", command=step_mundur)
 btn_prev.pack(side="left")
 
-lbl_indikator_step = ctk.CTkLabel(frame_navigasi, text="Langkah 0 dari 0", font=("Arial", 12))
+# Font Indikator Step dinaikkan ke 18
+lbl_indikator_step = ctk.CTkLabel(frame_navigasi, text="Langkah 0 dari 0", font=("Arial", 18, "bold"))
 lbl_indikator_step.pack(side="left", expand=True)
 
-btn_next = ctk.CTkButton(frame_navigasi, text="Selanjutnya >>", width=100, state="disabled", command=step_maju)
+btn_next = ctk.CTkButton(frame_navigasi, text="Selanjutnya >>", font=("Arial", 16, "bold"), width=150, height=40, state="disabled", command=step_maju)
 btn_next.pack(side="right")
 
 # ==========================================
