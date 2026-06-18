@@ -22,7 +22,7 @@ Buka terminal dan lakukan _clone repository_ ini, lalu arahkan ke direktori kerj
 
 ```bash
 git clone https://github.com/2172015/Tubes-Strago-217015-2472056.git
-cd "X:\Kuliah\Semester 10\STRATEGI ALGORITMIK\TUBES\Source\Tubes-Strago-217015-2472056"
+cd "Tubes-Strago-217015-2472056"
 
 ```
 
