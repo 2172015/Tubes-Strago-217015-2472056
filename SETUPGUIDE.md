@@ -21,7 +21,7 @@ Ikuti langkah-langkah di bawah ini secara berurutan pada terminal komputer (Powe
 Buka terminal dan lakukan _clone repository_ ini, lalu arahkan ke direktori kerja Anda:
 
 ```bash
-git clone [https://github.com/2172015/Tubes-Strago-217015-2472056.git](https://github.com/2172015/Tubes-Strago-217015-2472056.git)
+git clone https://github.com/2172015/Tubes-Strago-217015-2472056.git
 cd "X:\Kuliah\Semester 10\STRATEGI ALGORITMIK\TUBES\Source\Tubes-Strago-217015-2472056"
 
 ```
